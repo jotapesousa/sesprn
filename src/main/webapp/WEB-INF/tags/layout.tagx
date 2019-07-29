@@ -1,0 +1,209 @@
+<jsp:root xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"
+          xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+          xmlns:tags="tagSesprn">
+    <html lang="en">
+
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="-1"/>
+
+    <jsp:directive.attribute name="cabecalho" fragment="true" />
+    <jsp:directive.attribute name="rodape" fragment="true" />
+
+    <head>
+        <c:set var="ctx" value="${pageContext.request.contextPath}"/>
+
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <link rel="icon" type="image/png" sizes="16x16" href="../plugins/images/favicon.png"/>
+        <title>Sistema Estatístico de Segurança Pública do RN</title>
+
+        <!-- Bootstrap Core CSS -->
+        <!--<link href="${ctx}/resources/css/geral.css" rel="stylesheet"/>-->
+        <!--<link href="${ctx}/resources/plugins/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet"/>-->
+        <!--<link href="${ctx}/resources/plugins/dataTables/datatables.min.css" rel="stylesheet"/>-->
+
+        <!-- Bootstrap Core CSS -->
+        <link href="${ctx}/resources/plugins/startbootstrap-sb-admin-2-gh-pages/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+        <!-- MetisMenu CSS -->
+        <link href="${ctx}/resources/plugins/startbootstrap-sb-admin-2-gh-pages/vendor/metisMenu/metisMenu.min.css" rel="stylesheet"/>
+        <!-- Custom CSS -->
+        <link href="${ctx}/resources/plugins/startbootstrap-sb-admin-2-gh-pages/dist/css/sb-admin-2.css" rel="stylesheet"/>
+        <!-- Morris Charts CSS -->
+        <link href="${ctx}/resources/plugins/startbootstrap-sb-admin-2-gh-pages/vendor/morrisjs/morris.css" rel="stylesheet"/>
+        <!-- Custom Fonts -->
+        <link href="${ctx}/resources/plugins/startbootstrap-sb-admin-2-gh-pages/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+            <jsp:invoke fragment="cabecalho"/>
+        </head>
+
+        <body>
+            <!--<input id="ctx" type="hidden" value="${linkTo[ServicosController].salvar}"/>-->
+            <div id="wrapper">
+
+                <!-- Navigation -->
+                <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="${linkTo[IndexController].index}">SESPRN 0.5</a>
+                </div>
+                <!-- /.navbar-header -->
+
+                <ul class="nav navbar-top-links navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-user fa-fw"><c:out value=""/></i> ${usuarioLogado.usuario.nome} <i class="fa fa-caret-down"><c:out value=""/></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <!--<li><a href="${linkTo[PerfilController].form}?id=${usuarioLogado.usuario.id}"><i class="fa fa-user fa-fw"><c:out value=""/></i> Perfil</a>-->
+                            <!--</li>-->
+                            <!--<li class="divider"></li>-->
+                            <li><a href="${linkTo[LoginController].logout}"><i class="fa fa-sign-out fa-fw"><c:out value=""/></i> Sair</a>
+                            </li>
+                        </ul>
+                        <!-- /.dropdown-user -->
+                    </li>
+                    <!-- /.dropdown -->
+                </ul>
+                <!-- /.navbar-top-links -->
+
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li>
+                                <a href="${linkTo[IndexController].index}"><i class="fa fa-home fa-fw"><c:out value=""/></i> Home</a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="fa fa-home fa-fw"><c:out value=""/></i> Relatórios</a>
+                                <ul class="nav nav-second-level">
+                                <li>
+                                <a href="${linkTo[RelatoriogeralController].form}"><i class="fa fa-building fa-fw"><c:out value=""/></i> Cadastrar</a>
+                                </li>
+                                <li>
+                                <a href="${linkTo[RelatoriogeralController].lista}"><i class="fa fa-building fa-fw"><c:out value=""/></i> Ver Todas</a>
+                                </li>
+                                </ul>
+                            </li>
+                            <!--<c:if test="${usuarioLogado.isAdmin()}">-->
+                                <li>
+                                    <a href="${linkTo[DelegaciaController].lista}"><i class="fa fa-building fa-fw"><c:out value=""/></i> Delegacias</a>
+                                    <!--<ul class="nav nav-second-level">-->
+                                        <!--<li>-->
+                                            <!--<a href="${linkTo[DelegaciaController].form}"><i class="fa fa-building fa-fw"><c:out value=""/></i> Cadastrar</a>-->
+                                        <!--</li>-->
+                                        <!--<li>-->
+                                            <!--<a href="${linkTo[DelegaciaController].lista}"><i class="fa fa-building fa-fw"><c:out value=""/></i> Ver Todas</a>-->
+                                        <!--</li>-->
+                                    <!--</ul>-->
+                                </li>
+                                <li>
+                                    <a href="${linkTo[RegionalController].lista}"><i class="fa fa-shield fa-fw"><c:out value=""/></i> Regionais</a>
+                                </li>
+                            <!--</c:if>-->
+                            <li>
+                                <a href="${linkTo[CrimesController].lista}"><i class="fa fa-archive fa-fw"><c:out value=""/></i> Crimes</a>
+                                <!--<ul class="nav nav-second-level">-->
+                                    <!--<li>-->
+                                        <!--<a href="${linkTo[CrimesController].form}">Cadastrar</a>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                        <!--<a href="${linkTo[CrimesController].lista}">Lista</a>-->
+                                    <!--</li>-->
+                                <!--</ul>-->
+                                 <!--/.nav-second-level -->
+                            </li>
+                            <li>
+                                <a href="${linkTo[SubcrimesController].lista}"><i class="fa fa-archive fa-fw"><c:out value=""/></i> Subcrimes</a>
+                            </li>
+                            <!--<li>-->
+                                <!--<a href="#"><i class="fa fa-tasks fa-fw"><c:out value=""/></i> Tarefas<i class="fa arrow"><c:out value=""/></i></a>-->
+                                <!--<ul class="nav nav-second-level">-->
+                                    <!--<li>-->
+                                        <!--<a href="${linkTo[TarefasController].minhasTarefas}">Minhas Tarefas</a>-->
+                                    <!--</li>-->
+                                    <!--<li>-->
+                                        <!--<a href="${linkTo[TarefasController].tarefasConcluidas}">Concluídas</a>-->
+                                    <!--</li>-->
+                                    <!--<c:if test="${usuarioLogado.isAdmin()}">-->
+                                        <!--<li>-->
+                                            <!--<a href="${linkTo[TarefasController].lista}">Todas</a>-->
+                                        <!--</li>-->
+                                    <!--</c:if>-->
+                                <!--</ul>-->
+                                <!--&lt;!&ndash; /.nav-second-level &ndash;&gt;-->
+                            <!--</li>-->
+                            <c:if test="${usuarioLogado.isAdmin()}">
+                                <li>
+                                    <a href="${linkTo[UsuarioController].lista}"><i class="fa fa-users fa-fw"><c:out value=""/></i> Usuários</a>
+                                    <!--<ul class="nav nav-second-level">-->
+                                        <!--&lt;!&ndash;<li>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<a href="${linkTo[UsuarioController].form}">Cadastrar</a>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                                        <!--<li>-->
+                                            <!--<a href="${linkTo[UsuarioController].lista}">Ver Todos</a>-->
+                                        <!--</li>-->
+                                    <!--</ul>-->
+                                    <!-- /.nav-second-level -->
+                                </li>
+                            </c:if>
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
+                </div>
+                <!-- /.navbar-static-side -->
+            </nav>
+        </div>
+        <!-- /#wrapper -->
+        <div id="page-wrapper">
+            <jsp:include page="/WEB-INF/jsp/erros/msgError.jsp"/>
+            <jsp:doBody/>
+        </div>
+
+
+        <!-- jQuery -->
+        <script src="${ctx}/resources/plugins/startbootstrap-sb-admin-2-gh-pages/vendor/jquery/jquery.min.js"><c:out value=""/></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="${ctx}/resources/plugins/startbootstrap-sb-admin-2-gh-pages/vendor/bootstrap/js/bootstrap.min.js"><c:out value=""/></script>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="${ctx}/resources/plugins/startbootstrap-sb-admin-2-gh-pages/vendor/metisMenu/metisMenu.min.js"><c:out value=""/></script>
+        <!-- Morris Charts JavaScript -->
+        <script src="${ctx}/resources/plugins/startbootstrap-sb-admin-2-gh-pages/vendor/raphael/raphael.min.js"><c:out value=""/></script>
+        <script src="${ctx}/resources/plugins/startbootstrap-sb-admin-2-gh-pages/vendor/morrisjs/morris.min.js"><c:out value=""/></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="${ctx}/resources/plugins/startbootstrap-sb-admin-2-gh-pages/dist/js/sb-admin-2.js"><c:out value=""/></script>
+
+        <script src="${ctx}/resources/plugins/dataPicker/dataPicker-bootstrap.js"><c:out value=""/></script>
+        <!--<script src="${ctx}/resources/plugins/moment/moment.js"><c:out value=""/></script>-->
+        <!--<script src="${ctx}/resources/plugins/moment/date-time-moment.js"><c:out value=""/></script>-->
+        <!--<script src="${ctx}/resources/plugins/moment/moment-with-locale.js"><c:out value=""/></script>-->
+        <!--<script src="${ctx}/resources/plugins/dataTables/datatables.js"><c:out value=""/></script>-->
+
+        <!--<script src="${ctx}/resources/plugins/dataTables/Buttons-1.4.2/js/buttons.html5.js"><c:out value=""/></script>-->
+        <script src="${ctx}/resources/plugins/jqueryValidate/jquery.validate.js"><c:out value=""/></script>
+        <script src="${ctx}/resources/plugins/bootstrapValidator/validator.js"><c:out value=""/></script>
+
+        <!--<script src="${ctx}/resources/js/init.js"><c:out value=""/></script>-->
+
+        <jsp:invoke fragment="rodape"/>
+    </body>
+
+    </html>
+</jsp:root>
