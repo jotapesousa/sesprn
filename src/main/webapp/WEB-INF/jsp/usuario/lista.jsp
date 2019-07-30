@@ -128,6 +128,7 @@
                                             <br><br>
                                             <label for="delegacia-usuario">Informe a Delegacia do Usuário </label>
                                             <select class="form-control input-lg" required id="delegacia-usuario" name="usuario.delegacia.id">
+                                                <option value=""></option>
                                                 <c:forEach items="${delegacias}" var="delegacia">
                                                     <c:if test="${delegacia.valor == usuario.delegacia.id}">
                                                         <option value="${delegacia.valor}" selected="true">${delegacia.chave}</option>

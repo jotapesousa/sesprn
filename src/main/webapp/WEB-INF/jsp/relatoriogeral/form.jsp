@@ -32,6 +32,7 @@
 
     <jsp:attribute name="rodape">
         <script src="${ctx}/resources/js/relatoriogeral/relatorioGeral.js"></script>
+        <script src="${ctx}/resources/js/relatoriogeral/addRelatorio.js"></script>
         <%--<script src="${ctx}/resources/js/servicos/tarefas.js"></script>--%>
         <%--<script src="${ctx}/resources/js/servicos/btnTarefa.js"></script>--%>
         <%--<script src="${ctx}/resources/js/servicos/adicionarTarefa.js"></script>--%>
@@ -60,13 +61,14 @@
             <%--<input type="hidden" name="servico.codigoServico" value="${servico.codigoServico}"/>--%>
             <div class="panel-body">
                 <input id="urlSalvar" type="hidden" value="${linkTo[RelatorioGeralController].salvar}"/>
-                <div class="col-md-offset-4">
+                <div class="col-md-offset-5">
                     <input id="relatoriogeral-id" type="hidden" name="relatoriogeral.id" value="${relatoriogeral.id}"/>
                     <input id="relatoriogeral-dataAbertura" type="hidden" name="relatoriogeral.dataAbertura" value="${relatoriogeral.dataAbertura}"/>
                     <input id="relatoriogeral-responsavel" type="hidden" name="relatoriogeral.responsavel.id" value="${usuarioLogado.usuario.id}"/>
                     <input id="relatoriogeral-delegacia" type="hidden" name="relatoriogeral.delegacia.id" value="${usuarioLogado.usuario.delegacia.id}"/>
+                    <input id="relatoriogeral-delegacia-nome" type="hidden" value="${usuarioLogado.usuario.delegacia.nome}"/>
                     <div class="row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label for="titulo-relatoriogeral">Título</label>
                             <input type="text" minlength="5" class="form-control" id="titulo-relatoriogeral" required="true"
                                    value="${relatoriogeral.titulo}" placeholder="Titulo do Relatório"
@@ -74,12 +76,6 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-2">
-                            <label for="qteCrimes-relatoriogeral">Número de Crimes</label>
-                            <input type="text" class="form-control" id="qteCrimes-relatoriogeral" required="true"
-                                   value="${relatoriogeral.qtdeCrimes}" placeholder=""
-                                   name="relatoriogeral.qtdeCrimes"/>
-                        </div>
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="mesRelatorio">Mês</label>
@@ -95,14 +91,14 @@
                             </div>
                         </div>
                     </div>
-                    <%--<div class="row">--%>
-
-                    <%--</div>--%>
-                    <%--<div class="row">--%>
-                        <%--<div class="form-group col-md-6">--%>
-
-                        <%--</div>--%>
-                    <%--</div>--%>
+                    <div class="row">
+                        <!-- BOTAO PARA MODAL SERVICO -->
+                        <div class="col-md-offset-1">
+                            <button type="button" id="btnAddRelatorio" class="btn btn-info btn-lg"
+                                    data-toggle="modal" data-target="#modalNovoRelatorio">Novo Relatório</button>
+                            <br><br>
+                        </div>
+                    </div>
                 </div>
                             <%--<div class="row">--%>
                             <%--<div class="form-group col-md-3">--%>
@@ -120,13 +116,6 @@
                             <%--</select>--%>
                             <%--</div>--%>
                             <%--</div>--%>
-
-                <!-- BOTAO PARA MODAL SERVICO -->
-                <div class="panel" align="center">
-                    <button type="button" id="btnAddRelatorio" class="btn btn-primary btn-lg"
-                            data-toggle="modal" data-target="#modalNovoRelatorio">Novo Relatório</button>
-                    <br><br>
-                </div>
             </div>
 
             <!-- MODAL SERVICO -->
@@ -140,8 +129,8 @@
                         </div>
                         <div id="corpoModalServico" class="modal-body">
                             <div class="form-group">
-                                <label for="crime-relatoriogeral">Crime </label>
-                                <select class="form-control" required id="crime-relatoriogeral" name="relatoriogeral.subcrime.crime.id">
+                                <label for="crime-relatorio">Crime </label>
+                                <select class="form-control" required id="crime-relatorio" name="relatorio.subcrime.crime.id">
                                     <option value=""></option>
                                     <c:forEach items="${crimes}" var="crime">
                                         <c:if test="${crime.valor == relatoriogeral.crime.id}">
@@ -154,8 +143,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="subcrime">Subcrime:</label>
-                                <select class="form-control" required id="subcrime" name="relatoriogeral.subcrime.id">
+                                <label for="subcrime-relatorio">Subcrime:</label>
+                                <select class="form-control" required id="subcrime-relatorio" name="relatorio.subcrime.id">
                                     <option></option>
                                     <c:forEach items="${subcrimes}" var="subcrime">
                                         <c:choose>
@@ -169,10 +158,17 @@
                                     </c:forEach>
                                 </select>
                             </div>
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label for="qtdeCrimes-relatorio">Número de Crimes</label>
+                                    <input type="text" class="form-control" id="qtdeCrimes-relatorio" required="true"
+                                           value="${relatoriogeral.qtdeCrimes}" placeholder=""
+                                           name="relatorio.qtdeCrimes"/>
+                                </div>
+                            </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
-                            <button type="submit" class="btn btn-primary" id="btnSalvarServico">Sim</button>
+                            <button type="button" class="btn btn-primary" id="btnSalvarRelatorio" data-dismiss="modal">Adicionar</button>
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
@@ -180,8 +176,8 @@
 
         </form>
 
-        <div id="novosrelatorios-cadastrados"class="list-group">
-            NOVOS RELATORIOS
+        <div class="col-md-offset-4 col-md-4">
+        <div id="relatorios-cadastrados">
         </div>
 
             <%--<!-- MODAL TAREFA -->--%>

@@ -3,6 +3,7 @@ $(document).ready( function () {
     var ctx = $('#contx').val();
     var data = new Date();
     var mesRelatorio = data.getMonth() + 1;
+    var delegacia = $('#relatoriogeral-delegacia-nome').val();
 
     console.log("oi " + $('#relatoriogeral-delegacia').val());
     console.log("oi2 " + $('#relatoriogeral-responsavel').val());
@@ -11,11 +12,12 @@ $(document).ready( function () {
         mesRelatorio = "0" + mesRelatorio;
     }
 
+    $('#titulo-relatoriogeral').val("REL-" + mesRelatorio + "-" + data.getFullYear() + "-" + delegacia);
     $('#mesRelatorio').val(String(mesRelatorio));
     $('#anoRelatorio').val(String(data.getFullYear()));
 
-    $('#crime-relatoriogeral').change( function () {
-       var id = $('#crime-relatoriogeral').val();
+    $('#crime-relatorio').change( function () {
+       var id = $('#crime-relatorio').val();
 
        console.log(ctx);
        if (id != null) {
@@ -25,10 +27,10 @@ $(document).ready( function () {
                dataType: 'json'
            }).done( function (data) {
                console.log(data);
-               $('#subcrime').empty();
-               $('#subcrime').append("<option value=''></option>");
+               $('#subcrime-relatorio').empty();
+               $('#subcrime-relatorio').append("<option value=''></option>");
                data.forEach(function (subcrime) {
-                   $('#subcrime').append("<option value='"+subcrime.id+"'>"+subcrime.nome+"</option>");
+                   $('#subcrime-relatorio').append("<option value='"+subcrime.id+"'>"+subcrime.nome+"</option>");
                });
            }).fail(function () {
                alert("ERRO!")
@@ -40,8 +42,8 @@ $(document).ready( function () {
     $('#btnServico').click( function () {
         console.log($('#mesRelatorio').val());
         console.log($('#anoRelatorio').val());
-        console.log($('#crime-relatoriogeral').val());
-        console.log($('#qteCrimes-relatoriogeral').val());
+        console.log($('#crime-relatorio').val());
+        console.log($('#qteCrimes-relatorio').val());
         console.log($('#subcrime').val());
     });
 
