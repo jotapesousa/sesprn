@@ -8,6 +8,7 @@ import br.com.caelum.vraptor.view.Results;
 import br.gov.rn.pcrn.sesprn.anotacoes.Transacional;
 import br.gov.rn.pcrn.sesprn.dao.RelatoriogeralDao;
 import br.gov.rn.pcrn.sesprn.dao.SubcrimeDao;
+import br.gov.rn.pcrn.sesprn.dominio.Relatorio;
 import br.gov.rn.pcrn.sesprn.dominio.Relatoriogeral;
 import br.gov.rn.pcrn.sesprn.dominio.Subcrime;
 import br.gov.rn.pcrn.sesprn.negocio.EntidadeNegocio;
@@ -42,9 +43,9 @@ public class RelatoriogeralController extends Controlador {
 
     @Post
     @Transacional
-    public void salvar(Relatoriogeral relatorioGeral) {
-        relatorioGeral.setDataAbertura(LocalDate.now());
-        relatorioGeralDao.salvar(relatorioGeral);
+    public void salvar(Relatoriogeral relatoriogeral) {
+        relatoriogeral.setDataAbertura(LocalDate.now());
+//        relatorioGeralDao.salvar(relatoriogeral);
         resultado.redirectTo(this).lista();
     }
 
@@ -57,6 +58,11 @@ public class RelatoriogeralController extends Controlador {
         Relatoriogeral relatorioGeral = relatorioGeralDao.buscarPorId(id);
         resultado.include("relatorioGeral", relatorioGeral);
         resultado.of(this).form();
+    }
+
+    public void detalhes(Long id) {
+        Relatoriogeral relatoriogeral = relatorioGeralDao.buscarPorId(id);
+        resultado.include("relatorioGeral", relatoriogeral);
     }
 
     @Transacional
@@ -79,5 +85,40 @@ public class RelatoriogeralController extends Controlador {
             jsonArray.add(jsonObject);
         }
         resultado.use(Results.json()).withoutRoot().from(jsonArray).recursive().serialize();
+    }
+
+    @Get
+    public void listaRelatorios(Long id) {
+
+        Relatoriogeral relatoriogeral = relatorioGeralDao.buscarPorId(id);
+        JsonArray listaRelatorios = new JsonArray();
+
+        if (relatoriogeral != null) {
+            if (relatoriogeral.getRelatorios() != null) {
+                for (Relatorio relatorio : relatoriogeral.getRelatorios()) {
+                    if (!relatorio.isDeletado()) {
+                        JsonObject jsonObject = new JsonObject();
+
+                        jsonObject.addProperty("id", relatorio.getId());
+                        jsonObject.addProperty("titulo", relatorio.getTitulo());
+                        jsonObject.addProperty("dataAbertura", relatorio.getDataAbertura().toString());
+                        jsonObject.addProperty("qtdeCrimes", relatorio.getQtdeCrimes());
+                        jsonObject.addProperty("mes", relatorio.getMes());
+                        jsonObject.addProperty("ano", relatorio.getAno());
+                        jsonObject.addProperty("responsavelId", relatorio.getResponsavel().getId());
+                        jsonObject.addProperty("responsavelNome", relatorio.getResponsavel().getNome());
+                        jsonObject.addProperty("subCrimeId", relatorio.getSubcrime().getId());
+                        jsonObject.addProperty("subCrimeNome", relatorio.getSubcrime().getNome());
+                        jsonObject.addProperty("delegaciaId", relatorio.getDelegacia().getId());
+                        jsonObject.addProperty("delegaciaNome", relatorio.getDelegacia().getNome());
+                        jsonObject.addProperty("relatoriogeralId", relatorio.getRelatorioGeral().getId());
+                        listaRelatorios.add(jsonObject);
+                    }
+                }
+            }
+            resultado.use(Results.json()).withoutRoot().from(listaRelatorios).recursive().serialize();
+        } else {
+            resultado.use(Results.json()).withoutRoot().from(listaRelatorios).recursive().serialize();
+        }
     }
 }

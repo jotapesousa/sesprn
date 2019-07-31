@@ -46,8 +46,7 @@
             <!-- /.col-lg-12 -->
         </div>
         <input id="contx" hidden value="${ctx}">
-        <form id="form-relatorioGeral" action="${linkTo[RelatorioGeralController].salvar}" method="post">
-
+        <form id="form-relatorioGeral" action="${linkTo[RelatoriogeralController].salvar}" method="post">
             <div id="container-inputs-relatorios">
 
             </div>
@@ -60,7 +59,7 @@
             <%--</c:forEach>--%>
             <%--<input type="hidden" name="servico.codigoServico" value="${servico.codigoServico}"/>--%>
             <div class="panel-body">
-                <input id="urlSalvar" type="hidden" value="${linkTo[RelatorioGeralController].salvar}"/>
+                <input id="urlSalvar" type="hidden" value="${linkTo[RelatoriogeralController].salvar}"/>
                 <div class="col-md-offset-5">
                     <input id="relatoriogeral-id" type="hidden" name="relatoriogeral.id" value="${relatoriogeral.id}"/>
                     <input id="relatoriogeral-dataAbertura" type="hidden" name="relatoriogeral.dataAbertura" value="${relatoriogeral.dataAbertura}"/>
@@ -78,16 +77,16 @@
                     <div class="row">
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="mesRelatorio">Mês</label>
+                                <label for="mesRelatorioGeral">Mês</label>
                                 <input type="text" name="relatoriogeral.mes" value="${relatoriogeral.mes}" class="form-control"
-                                       id="mesRelatorio" readonly/>
+                                       id="mesRelatorioGeral" readonly/>
                             </div>
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="anoRelatorio">Ano</label>
+                                <label for="anoRelatorioGeral">Ano</label>
                                 <input type="text" name="relatoriogeral.ano" value="${relatoriogeral.ano}" class="form-control"
-                                       id="anoRelatorio" readonly/>
+                                       id="anoRelatorioGeral" readonly/>
                             </div>
                         </div>
                     </div>
@@ -100,22 +99,6 @@
                         </div>
                     </div>
                 </div>
-                            <%--<div class="row">--%>
-                            <%--<div class="form-group col-md-3">--%>
-                            <%--<label for="delegacia-relatoriogeral">Delegacia </label>--%>
-                            <%--<select class="form-control" required id="delegacia-relatoriogeral" name="relatoriogeral.delegacia.id">--%>
-                            <%--<option value=""></option>--%>
-                            <%--<c:forEach items="${delegacias}" var="delegacia">--%>
-                            <%--<c:if test="${delegacia.valor == relatoriogeral.delegacia.id}">--%>
-                            <%--<option value="${delegacia.valor}" selected="true">${delegacia.chave}</option>--%>
-                            <%--</c:if>--%>
-                            <%--<c:if test="${!(delegacia.valor == relatoriogeral.delegacia.id)}">--%>
-                            <%--<option value="${delegacia.valor}">${delegacia.chave}</option>--%>
-                            <%--</c:if>--%>
-                            <%--</c:forEach>--%>
-                            <%--</select>--%>
-                            <%--</div>--%>
-                            <%--</div>--%>
             </div>
 
             <!-- MODAL SERVICO -->
@@ -133,10 +116,10 @@
                                 <select class="form-control" required id="crime-relatorio" name="relatorio.subcrime.crime.id">
                                     <option value=""></option>
                                     <c:forEach items="${crimes}" var="crime">
-                                        <c:if test="${crime.valor == relatoriogeral.crime.id}">
+                                        <c:if test="${crime.valor == relatorio.crime.id}">
                                             <option value="${crime.valor}" selected="true">${crime.chave}</option>
                                         </c:if>
-                                        <c:if test="${!(crime.valor == relatoriogeral.crime.id)}">
+                                        <c:if test="${!(crime.valor == relatorio.crime.id)}">
                                             <option value="${crime.valor}">${crime.chave}</option>
                                         </c:if>
                                     </c:forEach>
@@ -148,7 +131,7 @@
                                     <option></option>
                                     <c:forEach items="${subcrimes}" var="subcrime">
                                         <c:choose>
-                                            <c:when test="${subcrime.valor == relatoriogeral.subcrime.id}">
+                                            <c:when test="${subcrime.valor == relatorio.subcrime.id}">
                                                 <option value="${subcrime.valor}" selected="true">${subcrime.chave}</option>
                                             </c:when>
                                             <c:otherwise>
@@ -162,7 +145,7 @@
                                 <div class="form-group col-md-3">
                                     <label for="qtdeCrimes-relatorio">Número de Crimes</label>
                                     <input type="text" class="form-control" id="qtdeCrimes-relatorio" required="true"
-                                           value="${relatoriogeral.qtdeCrimes}" placeholder=""
+                                           value="${relatorio.qtdeCrimes}" placeholder=""
                                            name="relatorio.qtdeCrimes"/>
                                 </div>
                             </div>
@@ -173,105 +156,12 @@
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
-
         </form>
 
         <div class="col-md-offset-4 col-md-4">
-        <div id="relatorios-cadastrados">
+            <div id="relatorios-cadastrados">
+            </div>
         </div>
 
-            <%--<!-- MODAL TAREFA -->--%>
-            <%--<div class="modal fade" id="myModal" role="dialog">--%>
-                <%--<div class="modal-dialog">--%>
-                    <%--<input type="hidden" name="tarefa.id" value="${tarefa.id}"/>--%>
-                    <%--<!-- Modal content-->--%>
-                    <%--<div class="modal-content">--%>
-                        <%--<div class="modal-header">--%>
-                            <%--<button type="button" class="close" data-dismiss="modal">&times;</button>--%>
-                            <%--<h2 class="modal-title text-center">Cadastro de Tarefa</h2>--%>
-                        <%--</div>--%>
-                        <%--<div class="modal-body">--%>
-                            <%--<div class="form-horizontal">--%>
-                                <%--<div class="form-group">--%>
-                                    <%--<label class="control-label col-sm-2" for="titulo-tarefa">Título:</label>--%>
-                                    <%--<div class="col-sm-10">--%>
-                                        <%--<input type="email" name="tarefa.titulo" class="form-control"--%>
-                                               <%--id="titulo-tarefa" placeholder="Titulo">--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                                <%--<div class="form-group">--%>
-                                    <%--<label class="control-label col-sm-2" for="data-fechamento-tarefa">Data de--%>
-                                        <%--Finalização:</label>--%>
-                                    <%--<div class="col-md-10">--%>
-                                        <%--<input type="text" class="form-control datePicker"--%>
-                                               <%--id="data-fechamento-tarefa"--%>
-                                               <%--required="true"--%>
-                                               <%--value="${tarefa.dataFechamento}"--%>
-                                               <%--placeholder="Data de finalização" readonly="readonly" name="tarefa.dataFechamento"/>--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                                <%--<div class="form-group">--%>
-                                    <%--<label class="control-label col-sm-2" for="status-tarefa">Status</label>--%>
-                                    <%--<div class="col-md-10">--%>
-                                        <%--<select type="text" class="form-control" id="status-tarefa"--%>
-                                                <%--placeholder="Status"--%>
-                                                <%--required="true"--%>
-                                                <%--name="tarefa.statusTarefa">--%>
-                                            <%--<option value=""></option>--%>
-                                            <%--<c:forEach items="${status}" var="s">--%>
-                                                <%--<c:if test="${s.valor == tarefa.statusTarefa.valor}">--%>
-                                                    <%--<option value="${s.valor}" selected="true">${s.chave}</option>--%>
-                                                <%--</c:if>--%>
-                                                <%--<c:if test="${!(s.valor == tarefa.statusTarefa.valor)}">--%>
-                                                    <%--<option value="${s.valor}">${s.chave}</option>--%>
-                                                <%--</c:if>--%>
-                                            <%--</c:forEach>--%>
-                                        <%--</select>--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                                <%--<div class="form-group">--%>
-                                    <%--<label class="control-label col-sm-2" for="tecnico-tarefa">Ténico--%>
-                                        <%--Responsável</label>--%>
-                                    <%--<div class="col-md-10">--%>
-                                        <%--<select class="form-control" id="tecnico-tarefa" name="tarefa.tecnico">--%>
-                                            <%--<option value=""></option>--%>
-                                            <%--<c:forEach items="${usuarios}" var="usuario">--%>
-                                                <%--<c:if test="${usuario.valor == servico.tecnico.id}">--%>
-                                                    <%--<option value="${usuario.valor}"--%>
-                                                            <%--selected="true">${usuario.chave}</option>--%>
-                                                <%--</c:if>--%>
-                                                <%--<c:if test="${!(usuario.valor == servico.tecnico.id)}">--%>
-                                                    <%--<option value="${usuario.valor}">${usuario.chave}</option>--%>
-                                                <%--</c:if>--%>
-                                            <%--</c:forEach>--%>
-                                        <%--</select>--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                                <%--<label>Possui pendência:--%>
-                                    <%--<div style="margin-left: 16px; float: right;">--%>
-                                        <%--<input type="checkbox" name="tarefa.pendente" value="${tarefa.pendente}"/>--%>
-                                    <%--</div>--%>
-                                <%--</label>--%>
-                                <%--<div class="form-group">--%>
-                                    <%--<label class="control-label col-sm-2" for="descricao-tarefa">Descrição:</label>--%>
-                                    <%--<div class="col-md-10">--%>
-                                            <%--<textarea class="form-control" name="tarefa.descricao" rows="2" required="true"--%>
-                                                      <%--id="descricao-tarefa">${tarefa.descricao}</textarea>--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-
-                        <%--</div>--%>
-                        <%--<div class="modal-footer">--%>
-                            <%--<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>--%>
-                            <%--<button id="btnSalvarTarefa" type="button" class="btn btn-primary" data-dismiss="modal">--%>
-                                <%--Salvar--%>
-                            <%--</button>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-
-        </div>
     </jsp:body>
 </tags:layout>

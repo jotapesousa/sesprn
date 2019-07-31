@@ -18,44 +18,8 @@
     <jsp:attribute name="rodape">
         <script src="${ctx}/resources/plugins/dataTables/datatables.js"><c:out value=""/></script>
         <script src="${ctx}/resources/plugins/dataTables/Buttons-1.4.2/js/buttons.html5.js"><c:out value=""/></script>
-        <%--<script src="${ctx}/resources/js/servicos/lista.js"></script>--%>
+        <script src="${ctx}/resources/js/table.js"></script>
         <%--<script src="${ctx}/resources/plugins/moment/date-time-moment.js"></script>--%>
-        <script>
-            $(document).ready(function () {
-                // $.fn.dataTable.moment('DD/MM/YYYY');
-
-
-                $('.table').DataTable( {
-                    pageLength:25,
-                    "language":
-                        {
-                            "sEmptyTable": "Nenhum registro encontrado",
-                            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                            "sInfoPostFix": "",
-                            "sInfoThousands": ".",
-                            "sLengthMenu": "_MENU_ resultados por página",
-                            "sLoadingRecords": "Carregando...",
-                            "sProcessing": "Processando...",
-                            "sZeroRecords": "Nenhum registro encontrado",
-                            "sSearch": "Pesquisar ",
-                            "oPaginate": {
-                                "sNext": "Próximo",
-                                "sPrevious": "Anterior",
-                                "sFirst": "Primeiro",
-                                "sLast": "Último"
-                            },
-                            "oAria": {
-                                "sSortAscending": ": Ordenar colunas de forma ascendente",
-                                "sSortDescending": ": Ordenar colunas de forma descendente"
-                            }
-                        }
-                } );
-            });
-
-
-        </script>
     </jsp:attribute>
 
     <jsp:body>
@@ -75,9 +39,6 @@
                         <tr>
                             <th>Titulo</th>
                             <th>Responsável</th>
-                            <th>Crime</th>
-                            <th>Subcrime</th>
-                            <th>N° de Crimes</th>
                             <th>Mês</th>
                             <th>Ano</th>
                             <th>Data de Abertura</th>
@@ -90,14 +51,14 @@
                             <tr>
                                 <td>${relatoriogeral.titulo}</td>
                                 <td>${relatoriogeral.responsavel.nome}</td>
-                                <td>${relatoriogeral.subcrime.crime.nome}</td>
-                                <td>${relatoriogeral.subcrime.nome}</td>
-                                <td>${relatoriogeral.qtdeCrimes}</td>
                                 <td>${relatoriogeral.mes}</td>
                                 <td>${relatoriogeral.ano}</td>
                                 <td>${relatoriogeral.dataAbertura}</td>
-                                <td><a title="Editar" class="editar-equip" href="${linkTo[RelatoriogeralController].editar}?id=${relatoriogeral.id}" alt="Editar">
-                                    <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a></td>
+                                <td>
+                                    <a title="Detalhes" href="${linkTo[RelatoriogeralController].detalhes}?id=${relatoriogeral.id}"><i class="fa fa-eye fa-lg"></i></a>
+                                    <a title="Editar" class="editar-equip" href="${linkTo[RelatoriogeralController].editar}?id=${relatoriogeral.id}" alt="Editar">
+                                    <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
+                                </td>
                                     <%--<c:if test="${usuarioLogado.isAdmin()}">--%>
                                     <%--<a title="Remover" class="link-remover" href="#delete-modal" url-remover="${linkTo[DelegaciaController].remover}?id=${delegacia.id}"--%>
                                     <%--data-toggle="modal" alt="Remover">--%>
@@ -105,7 +66,6 @@
                                     <%--</c:if>--%>
                                     <%--&lt;%&ndash;<a href="#"><i class="glyphicon glyphicon-file"></i></a>&ndash;%&gt;--%>
                                     <%--</td>--%>
-                                    <%--<td><a href="#">Detalhar</a></td>--%>
                             </tr>
                         </c:forEach>
 

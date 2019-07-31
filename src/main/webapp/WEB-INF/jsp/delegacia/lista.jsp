@@ -18,45 +18,8 @@
     <jsp:attribute name="rodape">
         <script src="${ctx}/resources/plugins/dataTables/datatables.js"><c:out value=""/></script>
         <script src="${ctx}/resources/plugins/dataTables/Buttons-1.4.2/js/buttons.html5.js"><c:out value=""/></script>
-        <script src="${ctx}/resources/js/servicos/lista.js"></script>
-        <script src="${ctx}/resources/js/delegacias/delegacia.js"></script>
-        <script src="${ctx}/resources/plugins/moment/date-time-moment.js"></script>
-        <script>
-            $(document).ready(function () {
-                $.fn.dataTable.moment('DD/MM/YYYY');
-
-
-                $('.table').DataTable( {
-                    pageLength:25,
-                    "language":
-                        {
-                            "sEmptyTable": "Nenhum registro encontrado",
-                            "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
-                            "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
-                            "sInfoFiltered": "(Filtrados de _MAX_ registros)",
-                            "sInfoPostFix": "",
-                            "sInfoThousands": ".",
-                            "sLengthMenu": "_MENU_ resultados por página",
-                            "sLoadingRecords": "Carregando...",
-                            "sProcessing": "Processando...",
-                            "sZeroRecords": "Nenhum registro encontrado",
-                            "sSearch": "Pesquisar ",
-                            "oPaginate": {
-                                "sNext": "Próximo",
-                                "sPrevious": "Anterior",
-                                "sFirst": "Primeiro",
-                                "sLast": "Último"
-                            },
-                            "oAria": {
-                                "sSortAscending": ": Ordenar colunas de forma ascendente",
-                                "sSortDescending": ": Ordenar colunas de forma descendente"
-                            }
-                        }
-                } );
-            });
-
-
-        </script>
+        <script src="${ctx}/resources/js/table.js"></script>
+        <script src="${ctx}/resources/js/init.js"></script>
     </jsp:attribute>
 
     <jsp:body>
@@ -120,37 +83,37 @@
                             <tr class="lista-delegacia">
                                 <td>${delegacia.nome}</td>
                                 <td>${delegacia.regional.nome}</td>
-                                <%--<td><a title="Editar" class="editar-equip" href="${linkTo[DelegaciaController].editar}?id=${delegacia.id}" alt="Editar">--%>
-                                    <%--<i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>--%>
-                                    <%--<c:if test="${usuarioLogado.isAdmin()}">--%>
-                                        <%--<a title="Remover" class="link-remover" href="#delete-modal" url-remover="${linkTo[DelegaciaController].remover}?id=${delegacia.id}"--%>
-                                           <%--data-toggle="modal" alt="Remover">--%>
-                                            <%--<i class="fa fa-trash fa-lg"></i></a>--%>
-                                    <%--</c:if>--%>
+                                <td><a title="Editar" class="editar-equip" href="${linkTo[DelegaciaController].editar}?id=${delegacia.id}" alt="Editar">
+                                    <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i></a>
+                                    <c:if test="${usuarioLogado.isAdmin()}">
+                                        <a title="Remover" class="link-remover" href="#delete-modal" url-remover="${linkTo[DelegaciaController].remover}?id=${delegacia.id}"
+                                           data-toggle="modal" alt="Remover">
+                                            <i class="fa fa-trash fa-lg"></i></a>
+                                    </c:if>
                                     <%--&lt;%&ndash;<a href="#"><i class="glyphicon glyphicon-file"></i></a>&ndash;%&gt;--%>
-                                <%--</td>--%>
+                                </td>
                                 <%--<td><a href="#">Detalhar</a></td>--%>
                             </tr>
                         </c:forEach>
 
-                        <%--<!-- Modal REMOVER -->--%>
-                        <%--<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">--%>
-                            <%--<div class="modal-dialog" role="document">--%>
-                                <%--<div class="modal-content">--%>
-                                    <%--<div class="modal-header">--%>
-                                        <%--<button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>--%>
-                                        <%--<h4 class="modal-title" id="modalLabel">Excluir Item</h4>--%>
-                                    <%--</div>--%>
-                                    <%--<div class="modal-body">--%>
-                                        <%--Deseja realmente excluir este item?--%>
-                                    <%--</div>--%>
-                                    <%--<div class="modal-footer">--%>
-                                        <%--<a id="btn-remover" href="" class="btn btn-primary">Sim</a>--%>
-                                        <%--<button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>--%>
-                                    <%--</div>--%>
-                                <%--</div>--%>
-                            <%--</div>--%>
-                        <%--</div>--%>
+                        <!-- Modal REMOVER -->
+                        <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="modalLabel">Excluir Delegacia</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        Deseja realmente excluir esta delegacia?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a id="btn-remover" href="" class="btn btn-primary">Sim</a>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">N&atilde;o</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         </tbody>
                     </table>

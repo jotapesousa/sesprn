@@ -11,7 +11,7 @@ public class Relatoriogeral extends Entidade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String codigo;
+    private String titulo;
     private int mes;
     private int ano;
     private LocalDate dataAbertura;
@@ -38,12 +38,12 @@ public class Relatoriogeral extends Entidade {
         this.id = id;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public int getMes() {

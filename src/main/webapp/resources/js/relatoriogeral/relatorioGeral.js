@@ -2,19 +2,25 @@ $(document).ready( function () {
 
     var ctx = $('#contx').val();
     var data = new Date();
-    var mesRelatorio = data.getMonth() + 1;
+    var mesRelatorioGeral = data.getMonth() + 1;
     var delegacia = $('#relatoriogeral-delegacia-nome').val();
+    var idRelatorioGeral = $('#relatoriogeral-id').val();
 
-    console.log("oi " + $('#relatoriogeral-delegacia').val());
-    console.log("oi2 " + $('#relatoriogeral-responsavel').val());
-
-    if (mesRelatorio < 10) {
-        mesRelatorio = "0" + mesRelatorio;
+    if (mesRelatorioGeral < 10) {
+        mesRelatorioGeral = "0" + mesRelatorioGeral;
     }
 
-    $('#titulo-relatoriogeral').val("REL-" + mesRelatorio + "-" + data.getFullYear() + "-" + delegacia);
-    $('#mesRelatorio').val(String(mesRelatorio));
-    $('#anoRelatorio').val(String(data.getFullYear()));
+    $('#titulo-relatoriogeral').val("REL-" + mesRelatorioGeral + "-" + data.getFullYear() + "-" + delegacia);
+    $('#mesRelatorioGeral').val(String(mesRelatorioGeral));
+    $('#anoRelatorioGeral').val(String(data.getFullYear()));
+
+    console.log($('#anoRelatorioGeral').val());
+    console.log($('#mesRelatorioGeral').val());
+
+    // if (idRelatorioGeral == '') {
+    //     console.log(idRelatorioGeral);
+    //     $('#form-relatorioGeral').submit();
+    // }
 
     $('#crime-relatorio').change( function () {
        var id = $('#crime-relatorio').val();
@@ -39,13 +45,13 @@ $(document).ready( function () {
        }
     });
 
-    $('#btnServico').click( function () {
-        console.log($('#mesRelatorio').val());
-        console.log($('#anoRelatorio').val());
-        console.log($('#crime-relatorio').val());
-        console.log($('#qteCrimes-relatorio').val());
-        console.log($('#subcrime').val());
-    });
+    // $('#btnServico').click( function () {
+    //     console.log($('#mesRelatorioGeral').val());
+    //     console.log($('#anoRelatorioGeral').val());
+    //     console.log($('#crime-relatorio').val());
+    //     console.log($('#qteCrimes-relatorio').val());
+    //     console.log($('#subcrime').val());
+    // });
 
 
 });

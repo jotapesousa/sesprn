@@ -4,9 +4,12 @@ $(document).ready( function () {
     var $containerRelatorios = $('#relatorios-cadastrados');
     var $btnsRemover;
     var $btnsEditar;
+    var $form = $('#form-relatorioGeral');
 
+    var ctx = $('#contx').val();
+    var idRelatorioGeral = $('#relatoriogeral-id').val();
     var edicao = false;
-
+    var posicaoEditavel;
 
     var listaRelatorios = [];
     var relatorio = {
@@ -26,24 +29,32 @@ $(document).ready( function () {
 
         carregarInputs();
 
-        $containerRelatorios.empty();
-        if (!edicao) {
-            listaRelatorios.push(relatorio);
-        } else {
-            relatorio.id = listaRelatorios[posicaoEditavel].id;
-            // tarefa.codigoTarefa = listaTarefas[posicaoEditavel].codigoTarefa;
-            // tarefa.dataAbertura = listaTarefas[posicaoEditavel].dataAbertura;
-            // listaTarefas[posicaoEditavel] = tarefa;
-        }
         var cont = 0;
-        $containerInputsRelatorios.empty();
-        listaRelatorios.forEach(function (relatorio) {
+        listaRelatorios.push(relatorio);
+        listaRelatorios.forEach( function (relatorio) {
             criarInputsHidden($form, relatorio, cont);
-            cont = cont + 1;
+            cont++;
         });
 
-        console.log(relatorio);
         gerarInputsRelatorio(relatorio);
+        console.log(listaRelatorios);
+
+        // $containerRelatorios.empty();
+        // if (!edicao) {
+        //     listaRelatorios.push(relatorio);
+        // } else {
+        //     // relatorio.id = listaRelatorios[posicaoEditavel].id;
+        //     // tarefa.codigoTarefa = listaTarefas[posicaoEditavel].codigoTarefa;
+        //     // tarefa.dataAbertura = listaTarefas[posicaoEditavel].dataAbertura;
+        //     // listaTarefas[posicaoEditavel] = tarefa;
+        // }
+        // var cont = 0;
+        // $containerInputsRelatorios.empty();
+        // listaRelatorios.forEach(function (relatorio) {
+        //     criarInputsHidden($form, relatorio, cont);
+        //     cont = cont + 1;
+        // });
+        // gerarInputsRelatorio(relatorio);
     });
 
     function carregarInputs() {
@@ -56,6 +67,40 @@ $(document).ready( function () {
         relatorio.subcrime.nome = $('#subcrime-relatorio :selected').text();
         relatorio.subcrime.crime = $('#crime-relatorio :selected').text();
     }
+
+    // function requisicaoRelatorios() {
+    //     url = ctx + "/relatoriogeral/listaRelatorios?id=" + idRelatorioGeral;
+    //
+    //     console.log(url);
+    //     $.ajax({
+    //         dataType: 'json',
+    //         type: 'GET',
+    //         url: url
+    //     }).done(function (data) {
+    //         console.log(data);
+    //         // listaRelatorios.concat(criarTarefasEInserirNaLista(data));
+    //         var cont = 0;
+    //         // listaRelatorios.forEach(function (relatorio) {
+    //         //     criarInputsHidden($form, relatorio, cont);
+    //         //     cont = cont + 1;
+    //         // });
+    //         console.log("relatorios: " + listaRelatorios.length);
+    //     }).fail(function () {
+    //         alert("erro");
+    //     }).always(function () {
+    //         // $btnsEditar = $(".editar-relatorio");
+    //         // atribuirListennerBtnEdicao($btnsEditar);
+    //         // tabela.spin(false);
+    //     });
+    // }
+
+    function criarRelatoriosEInserirNaLista(relatorios) {
+        relatorios.forEach(function (relatorio) {
+
+            listaRelatorios.push(relatorio);
+        });
+        return listaRelatorios;
+    };
 
     function criarInputsHidden($form, relatorio, i) {
         // $containerInputsRelatorios.empty();
@@ -79,29 +124,13 @@ $(document).ready( function () {
             "hidden name='relatoriogeral.relatorios[" + i + "].ano' " +
             "value='" + relatorio.ano + "'" +
             "/>");
-        // $containerInputsRelatorios.prepend("<input " +
-        //     "hidden name='relatoriogeral.relatorios[" + i + "].tecnico.id' " +
-        //     "value='" + tarefa.tecnico.id + "'" +
-        //     "/>");
-        // $containerInputsRelatorios.prepend("<input " +
-        //     "hidden name='relatoriogeral.relatorios[" + i + "].codigoTarefa' " +
-        //     "value='" + tarefa.codigoTarefa + "'" +
-        //     "/>");
-        // $containerInputsRelatorios.prepend("<input " +
-        //     "hidden name='relatoriogeral.relatorios[" + i + "].dataAbertura' " +
-        //     "value='" + tarefa.dataAbertura + "'" +
-        //     "/>");
-        // $containerInputsRelatorios.prepend("<input " +
-        //     "hidden name='relatoriogeral.relatorios[" + i + "].pendente' " +
-        //     "value='" + tarefa.pendente + "'" +
-        //     "/>");
-        gerarInputsRelatorio(relatorio, i);
+        // criarRelatoriosEInserirNaLista()
+        // requisicaoRelatorios();
     }
 
-    function gerarInputsRelatorio(relatorio) {
-        // console.log(relatorio);
+    function gerarInputsRelatorio(relatorio, i) {
         $containerRelatorios.append(
-            // "<input type='hidden' name='relatoriogeral.relatorio.id' value='" + relatorio.id+ "' />" +
+            "<input type='hidden' name='relatoriogeral.relatorio.id' value='" + relatorio.id+ "' />" +
             "<div id='' class='panel panel-primary'>" +
             "<div class='panel-heading'>" +
             "<h3 class='panel-title'>"+ relatorio.subcrime.nome + "</h3></div>"+
@@ -127,10 +156,12 @@ $(document).ready( function () {
         $btnRemocao.off('click');
         $btnRemocao.each(function () {
             $(this).click(function () {
+                console.log("remover");
                 var posicao = $(this).attr('posicao');
                 var idRelatorio = "'#relatorio-geral-"+posicao+"'";
                 posicaoEditavel = posicao;
-                remover(posicao);
+                console.log(posicao + ' e ' + idRelatorio);
+                // remover(posicao);
             });
         });
     }
