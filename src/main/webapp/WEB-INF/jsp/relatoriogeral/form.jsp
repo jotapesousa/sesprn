@@ -93,70 +93,70 @@
                     <div class="row">
                         <!-- BOTAO PARA MODAL SERVICO -->
                         <div class="col-md-offset-1">
-                            <button type="button" id="btnAddRelatorio" class="btn btn-info btn-lg"
+                            <button id="btnAddRelatorio" class="btn btn-info btn-lg"
                                     data-toggle="modal" data-target="#modalNovoRelatorio">Novo Relatório</button>
                             <br><br>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- MODAL SERVICO -->
-            <div class="modal fade" id="modalNovoRelatorio" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <input type="hidden" name="relatorio.id" value="${relatorio.id}"/>
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title">Novo Relatório</h4>
-                        </div>
-                        <div id="corpoModalServico" class="modal-body">
-                            <div class="form-group">
-                                <label for="crime-relatorio">Crime </label>
-                                <select class="form-control" required id="crime-relatorio" name="relatorio.subcrime.crime.id">
-                                    <option value=""></option>
-                                    <c:forEach items="${crimes}" var="crime">
-                                        <c:if test="${crime.valor == relatorio.crime.id}">
-                                            <option value="${crime.valor}" selected="true">${crime.chave}</option>
-                                        </c:if>
-                                        <c:if test="${!(crime.valor == relatorio.crime.id)}">
-                                            <option value="${crime.valor}">${crime.chave}</option>
-                                        </c:if>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="subcrime-relatorio">Subcrime:</label>
-                                <select class="form-control" required id="subcrime-relatorio" name="relatorio.subcrime.id">
-                                    <option></option>
-                                    <c:forEach items="${subcrimes}" var="subcrime">
-                                        <c:choose>
-                                            <c:when test="${subcrime.valor == relatorio.subcrime.id}">
-                                                <option value="${subcrime.valor}" selected="true">${subcrime.chave}</option>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <option value="${subcrime.valor}">${subcrime.chave}</option>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-3">
-                                    <label for="qtdeCrimes-relatorio">Número de Crimes</label>
-                                    <input type="text" class="form-control" id="qtdeCrimes-relatorio" required="true"
-                                           value="${relatorio.qtdeCrimes}" placeholder=""
-                                           name="relatorio.qtdeCrimes"/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="btnSalvarRelatorio" data-dismiss="modal">Adicionar</button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
         </form>
+
+        <!-- MODAL SERVICO -->
+        <div class="modal fade" id="modalNovoRelatorio" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <input type="hidden" name="relatorio.id" value="${relatorio.id}"/>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Novo Relatório</h4>
+                    </div>
+                    <div id="corpoModalServico" class="modal-body">
+                        <div class="form-group">
+                            <label for="crime-relatorio">Crime </label>
+                            <select class="form-control" required id="crime-relatorio" name="relatorio.subcrime.crime.id">
+                                <option value=""></option>
+                                <c:forEach items="${crimes}" var="crime">
+                                    <c:if test="${crime.valor == relatorio.crime.id}">
+                                        <option value="${crime.valor}" selected="true">${crime.chave}</option>
+                                    </c:if>
+                                    <c:if test="${!(crime.valor == relatorio.crime.id)}">
+                                        <option value="${crime.valor}">${crime.chave}</option>
+                                    </c:if>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="subcrime-relatorio">Subcrime:</label>
+                            <select class="form-control" required id="subcrime-relatorio" name="relatorio.subcrime.id">
+                                <option></option>
+                                <c:forEach items="${subcrimes}" var="subcrime">
+                                    <c:choose>
+                                        <c:when test="${subcrime.valor == relatorio.subcrime.id}">
+                                            <option value="${subcrime.valor}" selected="true">${subcrime.chave}</option>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <option value="${subcrime.valor}">${subcrime.chave}</option>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:forEach>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label for="qtdeCrimes-relatorio">Número de Crimes</label>
+                                <input type="text" class="form-control" id="qtdeCrimes-relatorio" required="true"
+                                       value="${relatorio.qtdeCrimes}" placeholder=""
+                                       name="relatorio.qtdeCrimes"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnSalvarRelatorio" data-dismiss="modal">Adicionar</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
         <div class="col-md-offset-4 col-md-4">
             <div id="relatorios-cadastrados">

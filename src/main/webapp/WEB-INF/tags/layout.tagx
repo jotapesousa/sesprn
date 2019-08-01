@@ -91,15 +91,15 @@
                                 <a href="${linkTo[IndexController].index}"><i class="fa fa-home fa-fw"><c:out value=""/></i> Home</a>
                             </li>
                             <li>
-                                <a href="#"><i class="fa fa-home fa-fw"><c:out value=""/></i> Relatórios</a>
-                                <ul class="nav nav-second-level">
-                                <li>
-                                <a href="${linkTo[RelatoriogeralController].form}"><i class="fa fa-building fa-fw"><c:out value=""/></i> Cadastrar</a>
-                                </li>
-                                <li>
-                                <a href="${linkTo[RelatoriogeralController].lista}"><i class="fa fa-building fa-fw"><c:out value=""/></i> Ver Todas</a>
-                                </li>
-                                </ul>
+                                <a href="${linkTo[RelatoriogeralController].lista}"><i class="fa fa-home fa-fw"><c:out value=""/></i> Relatórios</a>
+                                <!--<ul class="nav nav-second-level">-->
+                                <!--&lt;!&ndash;<li>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<a href="${linkTo[RelatoriogeralController].form}"><i class="fa fa-building fa-fw"><c:out value=""/></i> Cadastrar</a>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                                <!--<li>-->
+                                <!--<a href="${linkTo[RelatoriogeralController].lista}"><i class="fa fa-building fa-fw"><c:out value=""/></i> Ver Todas</a>-->
+                                <!--</li>-->
+                                <!--</ul>-->
                             </li>
                             <!--<c:if test="${usuarioLogado.isAdmin()}">-->
                                 <li>
